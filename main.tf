@@ -31,6 +31,13 @@ resource "aws_security_group" "loan_input_service_security_group" {
     protocol    = "tcp"
     cidr_blocks = ["0.0.0.0/0"]
   }
+  ingress{
+    description = "SSH Port"
+    from_port = 22
+    to_port = 22
+    protocol = "tcp"
+    cidr_blocks = ["0.0.0.0/0"]
+  }
 
   ingress {
     description = "Custom TCP Port to access application"
