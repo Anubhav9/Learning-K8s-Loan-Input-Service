@@ -1,5 +1,5 @@
 #!/bin/bash
-CURRENT_VERSION="v6"
+CURRENT_VERSION="v11"
 
 # Update package list and install required dependencies
 sudo apt-get update -y
@@ -26,4 +26,4 @@ sudo systemctl start docker
 sudo systemctl enable docker
 
 # Pull or run the Docker container
-sudo docker run -d -p 2809:2809 --name=loan-input-service anubhav83/loan-input-service:v${CURRENT_VERSION}
+sudo docker run -d -p 2809:2809 --name=loan-input-service anubhav83/loan-input-service:${CURRENT_VERSION}
