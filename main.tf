@@ -27,7 +27,7 @@ resource "aws_security_group" "loan-input-service-security-group"{
         to_port=443
         protocol="tcp"
         cidr_blocks=["0.0.0.0/0"]
-    },
+    }
     ingress={
         description="Custom TCP Port to access application"
         from_port=2809
