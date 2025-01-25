@@ -10,27 +10,27 @@ jobs:
       - name: Checkout Code
         uses: actions/checkout@v4
       - name: Build and Tag Docker Image
-        run: docker build -t loan-input-service:${{github.run_number}} .
+        run: docker build -t loan-input-service:v${{github.run_number}} .
       - name: Tag Local Image to Docker Hub Image
-        run: docker tag loan-input-service:${{github.run_number}} anubhav83/loan-input-service:${{github.run_number}}
+        run: docker tag loan-input-service:v${{github.run_number}} anubhav83/loan-input-service:v${{github.run_number}}
       - name: Authenticate Docker Hub Creds
         env:
           username: ${{secrets.DOCKERHUB_USERNAME}}
           password: ${{secrets.DOCKERHUB_PASSWORD}}
         run: echo "$password" | docker login -u "$username" --password-stdin
       - name: Push Image to Docker Hub
-        run: docker push anubhav83/loan-input-service:${{github.run_number}}
+        run: docker push anubhav83/loan-input-service:v${{github.run_number}}
       - name: Create a Tag
         env:
           GITHUB_TOKEN: ${{secrets.GITHUB_TOKEN}}
         run: |
-          git tag ${{github.run_number}}
-          git push origin ${{github.run_number}}
+          git tag v${{github.run_number}}
+          git push origin v${{github.run_number}}
       - name: Create Release
         uses: actions/create-release@v1
         env:
           GITHUB_TOKEN: ${{secrets.GITHUB_TOKEN}}
         with:
-          tag_name: ${{github.run_number}}
-          release_name: Release ${{github.run_number}}
+          tag_name: v${{github.run_number}}
+          release_name: Release v${{github.run_number}}
           body: A Dummy Commit Currently
