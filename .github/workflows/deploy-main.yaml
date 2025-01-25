@@ -34,6 +34,6 @@ jobs:
                 AWS_SECRET_ACCESS_KEY: ${{secrets.AWS_SECRET_KEY}}
               run: terraform apply -auto-approve
             - name: Terraform Taint
-              run: terraform taint aws_instance.loan-input-service
+              run: terraform taint aws_instance.loan_input_service
             
             
