@@ -1,0 +1,34 @@
+name: Merge to main being auto deployed
+on:
+    push:
+        branches:
+            - main
+    workflow_run:
+        workflows:
+            - Build Docker Image and push it to Docker Hub
+        types:
+            - completed
+jobs:
+    Automatically_deploy_to_ec2_instance:
+        runs-on: ubuntu-latest
+        steps:
+            - name: Checkout Code
+              uses: actions/checkout@v4
+            - name: Install Terraform
+              run: |
+                sudo apt-get update
+                sudo apt-get install -y terraform
+            - name: Terraform Initialisation
+              env:
+                AWS_ACCESS_KEY_ID: ${{secrets.AWS_ACCESS_KEY}}
+                AWS_SECRET_ACCESS_KEY: ${{secrets.AWS_SECRET_KEY}}
+              run: terraform init
+            - name: Terraform Apply
+              env:
+                AWS_ACCESS_KEY_ID: ${{secrets.AWS_ACCESS_KEY}}
+                AWS_SECRET_ACCESS_KEY: ${{secrets.AWS_SECRET_KEY}}
+              run: terraform apply -auto-approve
+            - name: Terraform Taint
+              run: terraform taint aws_instance.loan-input-service
+            
+            
