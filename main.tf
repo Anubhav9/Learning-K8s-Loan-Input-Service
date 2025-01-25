@@ -5,7 +5,7 @@ provider "aws" {
 resource "aws_instance" "loan_input_service" {
   ami           = "ami-0a290015b99140cd1"
   instance_type = "t2.micro"
-  security_groups = [aws_security_group.loan_input_service_security_group.id]
+  vpc_security_group_ids = [aws_security_group.loan_input_service_security_group.id]
   user_data = file("docker-instructions-ec2.sh")
   tags = {
     Name = "loan-input-service-box"
