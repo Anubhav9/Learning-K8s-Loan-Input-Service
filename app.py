@@ -18,4 +18,6 @@ def get_judgement():
 
 if __name__ == "__main__":
     app.run(port=2809, host='0.0.0.0')
+    
+
 
